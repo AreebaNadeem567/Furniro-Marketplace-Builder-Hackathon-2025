@@ -4,7 +4,7 @@
 // import Link from "next/link";
 // import { useEffect, useState } from "react";
 
-// interface ProductSection {
+// interface Product {
 //   title: string;
 //   description: string;
 //   isNew: boolean;
@@ -15,34 +15,45 @@
 //   _id: string;
 // }
 
+// // Fetch products from Sanity
+// async function getProducts(): Promise<Product[]> {
+//   try {
+//     const products: Product[] = await client.fetch(`
+//       *[_type=='product'][] {
+//         'productImage': productImage.asset->url,  // Fetching image URL
+//         description,
+//         discountPercentage,  // Fixed typo here
+//         tags,
+//         isNew,
+//         title,
+//         price,
+//         _id  // Included _id for use in mapping/rendering
+//       }
+//     `);
+
+//     return products;
+//   } catch (error) {
+//     console.error("Error fetching products: ", error);
+//     return [];  // Return an empty array in case of an error
+//   }
+// }
+
 // export default function RelatedProducts() {
-//   const [cards, setCards] = useState<ProductSection[]>([]);
+//   const [cards, setCards] = useState<Product[]>([]);
 
 //   useEffect(() => {
-//     const fetchData1 = async () => {
-//       const res: ProductSection[] = await client.fetch(`
-//         *[_type=='product'][]{
-//           'productImage': productImage.asset->url,
-//           description,
-//           discountPercentage,
-//           tags,
-//           isNew,
-//           title,
-//           price,
-//           _id
-//         }
-//       `);
-
-//       setCards(res);
+//     const fetchData = async () => {
+//       const products = await getProducts();
+//       setCards(products);
 //     };
 
-//     fetchData1();
+//     fetchData();
 //   }, []);
 
 //   return (
 //     <section className="py-12 overflow-hidden">
 //       <div className="container px-4 md:px-6 mx-auto">
-//         <h2 className="text-3xl font-bold text-center mb-10">
+//         <h2 className="text-5xl font-bold text-center mb-10">
 //           Related Products
 //         </h2>
 //       </div>
@@ -50,12 +61,12 @@
 //       <div className="grid grid-cols-1 gap-4 px-4 sm:grid-cols-2 md:grid-cols-4">
 //         {cards
 //           .slice(0, 4) // Limiting to 4 items
-//           .map((item: ProductSection) => (
+//           .map((item: Product) => (
 //             <div
 //               key={item._id}
-//               className="bg-white border border-gray-200 rounded-lg shadow"
+//               className="bg-white border border-gray-200 rounded-lg shadow hover:scale-105 hover:shadow-lg transition-transform duration-300"
 //             >
-//               <div className="relative w-full h-[150px] sm:h-[200px] overflow-hidden rounded-t-lg">
+//               <div className="relative w-full h-[250px] overflow-hidden rounded-t-lg">
 //                 <Image
 //                   src={item.productImage}
 //                   alt={item.title}
@@ -109,12 +120,18 @@
 
 
 
+
+
+
+
+
 "use client";
 import { client } from "@/sanity/lib/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+// Adjusted interface name to Product to match the returned data structure
 interface Product {
   title: string;
   description: string;
@@ -122,18 +139,18 @@ interface Product {
   tags: string[];
   price: number;
   productImage: string;
-  discountPercentage: number;
+  discountPercentage: number;  // Corrected typo here
   _id: string;
 }
 
 // Fetch products from Sanity
 async function getProducts(): Promise<Product[]> {
   try {
-    const products: Product[] = await client.fetch(`
+    const products = await client.fetch(`
       *[_type=='product'][] {
         'productImage': productImage.asset->url,  // Fetching image URL
         description,
-        discountPercentage,  // Fixed typo here
+        discountPercentage,  // Corrected typo here
         tags,
         isNew,
         title,
