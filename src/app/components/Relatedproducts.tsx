@@ -106,102 +106,33 @@
 
 
 
+import Image from 'next/image';
 
+const images = [
+  '/images/artwall.png',  // Replace with your actual image paths
+  '/images/dining.png',
+  '/images/table1.png',
+  '/images/leviosa.png',
+];
 
-
-
-import { client } from "@/sanity/lib/client"
-import { Badge } from "lucide-react"
-import Image from "next/image"
-import { Card, CardHeader, CardContent } from "../components/ui/card"
-import { JSX, useEffect, useState } from "react";
-
-// Adjust the interface name to Product to match the returned data structure
-interface Product {
-  title: string;
-  description: string;
-  isNew: boolean;
-  tags: string[];
-  price: number;
-  productImage: string;
-  dicountPercentage: number;
-  _id: string;
-}
-
-// Fetch products from Sanity
-async function getProducts(): Promise<Product[]> {
-  try {
-    const products = await client.fetch(`
-      *[_type=='product'][] {
-        'productImage': productImage.asset->url,  // Fetching image URL
-        description,
-        dicountPercentage,
-        tags,
-        isNew,
-        title,
-        price,
-        _id
-      }
-    `)
-
-    // Limit the results to 4 items
-    return products.slice(0, 4)
-  } catch (error) {
-    console.error("Error fetching products:", error)
-    return []
-  }
-}
-
-// ProductCard Component
-function ProductCard({ price, dicountPercentage, isNew, title, productImage }: Product) {
+export default function ImageGrid() {
   return (
-    <Card className="w-full max-w-sm overflow-hidden transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
-      <CardHeader className="p-0">
-        <div className="relative w-full h-80">
-          <Image
-            src={productImage || "/placeholder.svg"} // Fallback to placeholder image if productImage is missing
-            alt={title}
-            layout="fill"
-            objectFit="cover"
-            priority={true} // This helps to load images sooner
-          />
-          {isNew && <Badge className="absolute top-2 right-2 bg-green-500 hover:bg-green-600">New</Badge>}
-        </div>
-      </CardHeader>
-      <CardContent className="p-4">
-        <h3 className="text-lg font-semibold mb-2">{title}</h3>
-        <div className="flex items-center justify-between">
-          <span className="text-xl font-bold">${price.toFixed(2)}</span>
-        </div>
-      </CardContent>
-    </Card>
-  )
-}
-
-// Home Component
-export default function Home() {
-  const [products, setProducts] = useState<Product[]>([])
-
-  useEffect(() => {
-    // Fetch the products and set the state
-    const fetchData = async () => {
-      const fetchedProducts = await getProducts()
-      setProducts(fetchedProducts)
-    }
-
-    fetchData()
-  }, [])
-
-  return (
-    <main className="container mx-auto py-8">
-      <h1 className="text-6xl font-bold mb-8 text-center">Related Products</h1>
+    <div className="container mx-auto py-8">
+      <h1 className="text-4xl font-bold text-center mb-6">Related Products</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {products.map((product: JSX.IntrinsicAttributes & Product) => (
-          <ProductCard key={product._id} {...product} />
+        {images.map((src, index) => (
+          <div key={index} className="relative w-full h-64 rounded-lg overflow-hidden shadow-lg group hover:scale-105 transition-transform duration-300">
+            <Image 
+              src={src} 
+              alt={`Image ${index + 1}`} 
+              layout="fill" 
+              objectFit="cover" 
+            />
+            <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            </div>
+          </div>
         ))}
       </div>
-    </main>
-  )
+    </div>
+  );
 }
-
-
