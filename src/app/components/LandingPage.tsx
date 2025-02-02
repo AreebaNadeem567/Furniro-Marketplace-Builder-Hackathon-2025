@@ -4,6 +4,7 @@ import Browse from './Browse'
 import Rooms from './Rooms'
 import Furniture from './Furniture'
 import Products from './OurProducts'
+// import WhistlePage from '../Wishslist/page'
 
 
 function LandingPage() {
@@ -12,6 +13,7 @@ function LandingPage() {
         <Hero/>
         <Browse/>
         <Products  />
+       {/* <WhistlePage /> */}
         {/* <ProductCard  /> */}
         <Rooms/>
         <Furniture/>
