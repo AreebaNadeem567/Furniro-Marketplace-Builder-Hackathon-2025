@@ -1,136 +1,99 @@
-//src\app\productComparison\page.tsx
 
-import React from "react";
-export const dynamic = "force-dynamic";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { client } from "@/sanity/lib/client";
-import PcSectionTwo from "../components/PcSectionsTwo";
-import Shopbottombar from "../components/Shpbottombar";
+import { ChevronRight, Star, Trash2 } from "lucide-react";
+import Image from "next/image";
 
-export default async function ProductComparisonContent({
-  searchParams,
-}: {
-  searchParams: Promise<{
-    productName: string;
-    productPrice: string;
-    productImage: string;
-    productDescription: string;
-  }>;
-}) {
-  const { productName, productPrice, productImage, productDescription } =
-    await searchParams;
+const ProductComparisonContent = () => {
+  // State to store cart items
+  const [cartItems, setCartItems] = useState<any[]>([]);
 
-  interface BoxContent {
-    boxTitle: string;
-    field1: string;
-    field2: string;
-    field3: string;
-    field4: string;
-    field5: string;
-    field6: string;
-    field7: string;
-    field8: string;
-    field9: string;
-    field10: string;
-    field11: string;
-    field12: string;
-    field13: string;
-    field14: string;
-    field15: string;
-    field16: string;
-    field17: string;
-    field18: string;
-  }
+  // Fetch cart items from localStorage when the component mounts
+  useEffect(() => {
+    const storedItems = JSON.parse(localStorage.getItem("cart") || "[]");
+    setCartItems(storedItems);
+  }, []);
 
-  const res: BoxContent[] = await client.fetch(`
-  *[_type=='pC'][].box[].boxContent[]{
-'boxTitle':boxTitle,
-'field1':field1,
-'field2':field2,
-'field3':field3,
-'field4':field4,
-'field5':field5,
-'field6':field6,
-'field7':field7,
-'field8':field8,
-'field9':field9,
-'field10':field10,
-'field11':field11,
-'field12':field12,
-'field13':field13,
-'field14':field14,
-'field15':field15,
-'field16':field16,
-'field17':field17,
-'field18':field18,
-}
-  `);
+  // Listen for changes in localStorage to update cartItems
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const updatedItems = JSON.parse(localStorage.getItem("cart") || "[]");
+      setCartItems(updatedItems);
+    };
+
+    // Event listener for changes in localStorage
+    window.addEventListener("storage", handleStorageChange);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
+  // Function to remove an item from the comparison (only within the component state)
+  const removeItem = (index: number) => {
+    const updatedItems = cartItems.filter((_, i) => i !== index);
+    setCartItems(updatedItems);
+  };
 
   return (
     <>
-      <div className="bg-[url('/images/comparison-bg.png')] bg-cover bg-center py-16 mb-12">
-        <div className="container text-center">
-          <div className="inline-block w-16 h-16 bg-[url('/images/logo-short.png)] mb-4" />
-          <h1 className="text-3xl md:text-4xl font-medium mb-4 font-poppins">
-            Product Comparison
-          </h1>
+      <section className="bg-[url('/images/comparison-bg.png')] bg-cover bg-center py-12 md:py-16 mb-6">
+        <div className="container mx-auto px-4 text-center">
+          <div className="inline-block w-16 h-16 bg-[url('/images/logo-short.png')] mb-4" />
+          <h1 className="text-3xl md:text-4xl font-medium mb-4">Product Comparison</h1>
           <div className="flex items-center justify-center gap-2 text-sm">
-            <Link href="/" className="hover:underline">
-              Home /
-            </Link>
+            <Link href="/" className="hover:underline">Home</Link>
+            <ChevronRight className="w-4 h-4" />
             <span>Comparison</span>
           </div>
         </div>
-      </div>
+      </section>
 
       <section className="m-auto pb-[112px]">
-        <PcSectionTwo
-          productName={productName}
-          productPrice={productPrice}
-          productImage={productImage}
-          productDescription={productDescription}
-        />
-
         <div className="mt-[42px] px-[16px] sm:px-[50px]">
-          {res.map((section: BoxContent, index: number) => (
-            <div key={index} className="mt-[96px]">
-              <h3 className="text-[18px] sm:text-2xl font-medium">
-                {section.boxTitle}
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div className="w-full border-r border-gray-300">
-                  <div className="font-medium mt-[28px] mb-[34px]">
-                    {section.field1}
+          {cartItems.length > 0 ? (
+            <div className="mt-[96px]">
+              <h3 className="text-[18px] sm:text-2xl font-medium mb-6">Product Comparison</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {cartItems.map((item, index) => (
+                  <div
+                    key={index}
+                    className="w-full border border-gray-300 p-6 rounded-lg shadow-lg bg-white flex flex-col items-center"
+                  >
+                    <Image
+                      src={item.productImage}
+                      alt={item.title}
+                      width={180}
+                      height={180}
+                      className="mb-4 rounded-md"
+                    />
+                    <h4 className="font-medium text-lg text-center mb-2">{item.title}</h4>
+                    <p className="text-gray-600 mb-3">Price: <span className="text-black font-semibold">Rs. {item.price}</span></p>
+                    <div className="flex items-center gap-1 mb-3">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className={`w-5 h-5 ${i < 4 ? 'text-yellow-500' : 'text-gray-300'}`} />
+                      ))}
+                    </div>
+                    <button 
+                      onClick={() => removeItem(index)}
+                      className="mt-2 px-4 py-2 bg-red-500 text-white rounded-lg flex items-center gap-2 hover:bg-red-600"
+                    >
+                      <Trash2 className="w-4 h-4" /> Remove
+                    </button>
                   </div>
-                  <div className="font-medium mb-[34px]">{section.field2}</div>
-                  <div className="font-medium mb-[34px]">{section.field3}</div>
-                  <div className="font-medium mb-[34px]">{section.field4}</div>
-                  <div className="font-medium mb-[34px]">{section.field5}</div>
-                  <div className="font-medium mb-[34px]">{section.field6}</div>
-                </div>
-
-                <div className="w-full border-r border-gray-300">
-                  <div className="mb-[34px] mt-[28px]">{section.field7}</div>
-                  <div className="mb-[34px]">{section.field8}</div>
-                  <div className="mb-[34px]">{section.field9}</div>
-                  <div className="mb-[34px]">{section.field10}</div>
-                  <div className="mb-[34px]">{section.field11}</div>
-                  <div className="mb-[34px]">{section.field12}</div>
-                </div>
-                <div className="w-full border-r border-gray-300">
-                  <div className="mb-[34px] mt-[28px]">{section.field13}</div>
-                  <div className="mb-[34px]">{section.field14}</div>
-                  <div className="mb-[34px]">{section.field15}</div>
-                  <div className="mb-[34px]">{section.field16}</div>
-                  <div className="mb-[34px]">{section.field17}</div>
-                  <div className="mb-[34px]">{section.field18}</div>
-                </div>
+                ))}
               </div>
             </div>
-          ))}
+          ) : (
+            <p className="text-center text-gray-500 text-lg mt-10">No products in comparison.</p>
+          )}
         </div>
-        {/* <Shopbottombar /> */}
       </section>
     </>
   );
-}
+};
+
+export default ProductComparisonContent;

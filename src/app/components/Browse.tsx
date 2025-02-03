@@ -68,7 +68,8 @@ export default function Browse() {
             Browse The Range
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. */}
+            Elevate your space with stylish and durable furniture
           </p>
         </div>
 

@@ -26,10 +26,14 @@ export default function Hero() {
             <br />
             New Collection
           </h1>
-          <p className="text-gray-700 text-base lg:text-lg mb-8 ">
+          {/* <p className="text-gray-700 text-base lg:text-lg mb-8 ">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
             tellus, luctus nec ullamcorper mattis.
+          </p> */}
+          <p className="text-gray-700 text-base lg:text-lg mb-8">
+          Experience the perfect blend of elegance and comfort. Designed to complement your space with timeless craftsmanship.
           </p>
+
           <div>
             <Link
               href="/shop"

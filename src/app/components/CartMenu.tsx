@@ -102,7 +102,10 @@ export default function CartMenu({ onClose }: CartMenuProps) {
         {/* Action Buttons */}
         <div className="grid grid-cols-3 gap-4 mt-6">
           <Link href="/cart">
-            <button className="w-full text-sm py-2 px-4 bg-gray-200 rounded-md hover:bg-gray-300" onClick={onClose}>
+            <button
+              className="w-full text-sm py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              onClick={onClose}
+            >
               Cart
             </button>
           </Link>
@@ -114,8 +117,11 @@ export default function CartMenu({ onClose }: CartMenuProps) {
               Checkout
             </button>
           </Link>
-          <Link href="/product-comparison">
-            <button className="w-full text-sm py-2 px-4 bg-gray-200 rounded-md hover:bg-gray-300" onClick={onClose}>
+          <Link href="/productComparison">
+            <button
+              className="w-full text-sm py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              onClick={onClose}
+            >
               Comparison
             </button>
           </Link>
@@ -124,11 +130,3 @@ export default function CartMenu({ onClose }: CartMenuProps) {
     </div>
   )
 }
-
-
-
-
-
-
-
-
