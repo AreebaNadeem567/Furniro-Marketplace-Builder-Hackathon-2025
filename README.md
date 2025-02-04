@@ -1,3 +1,200 @@
+ Furniro Marketplace Builder Hackathon 2025
+
+ Day 1: Laying the Foundation for Your Marketplace Journey
+
+ Overview
+This repository contains my completed task for Day 1 of the Hackathon, which involved setting up the foundational elements of a general e-commerce marketplace focused on household and office furniture. The tasks included outlining business goals, selecting a marketplace type, and designing a data schema with key fields and relationships between entities.
+
+ Task Breakdown
+ Step 1: Marketplace Type
+Marketplace Type: General E-Commerce
+Primary Purpose: A platform connecting buyers with high-quality household and office furniture. The platform offers durable, stylish, and affordable furniture with customization options.
+
+ Step 2: Business Goals
+Problem Solved:
+- Providing a one-stop solution for durable and stylish furniture.
+- Addressing functionality, aesthetics, and affordability needs.
+
+Target Audience:
+- Homeowners
+- Office managers and business owners
+- Interior designers and architects
+
+ Offered Products and Services:
+- Household and office furniture
+- Customization options
+- Delivery and installation services
+- Furniture bundles
+
+Unique Selling Points:
+- Quality assurance
+- Customization flexibility
+- Affordable pricing
+- Broad variety of styles and designs
+- Convenient platform with dedicated customer support
+
+Step 3: Data Schema
+Entities in the Marketplace:
+- Products: ID, Name, Description, Price, Stock, Category, Material, Dimensions, Image URL, Customization Options.
+- Orders: Order ID, Customer ID, Order Date, Product Details (Product ID, Quantity), Total Price, Status, Payment Method.
+- Customers: Customer ID, Name, Email, Phone, Address, Registration Date.
+- Delivery Zones: Zone ID, Zone Name, Coverage Area, Assigned Drivers, Delivery Charges.
+
+ Relationships Between Entities:
+- Products → Orders: Products can appear in multiple orders.
+- Orders → Customers: An order is placed by one customer.
+- Delivery Zones → Orders: Orders are associated with delivery zones based on shipping address.
+
+Step 4: Data Schema Diagram
+A visual representation of entity relationships is available in the "images" folder.
+
+---
+
+Day 2: Technical Foundation
+
+ Goal
+The objective of Day 2 was to transition from business planning to creating a technical foundation for the Furniro Marketplace. This involved designing the system architecture, defining workflows, creating schemas, and specifying API requirements to ensure the marketplace is scalable, efficient, and user-friendly.
+
+Deliverables
+ 1. eCommerce Schema
+- Developed schemas using "Sanity CMS" to manage:
+  - Product data
+  - Customer details
+  - Order records
+- Created detailed schema files to represent real-world data for seamless integration.
+
+2. Marketplace Technical Foundation
+- System Architecture:
+  - Frontend: Next.js
+  - Backend:Sanity CMS
+  - Third-Party APIs: ShipEngine for shipments, Stripe for payments.
+- Defined Workflows:
+  - Product Browsing
+  - Order Placement
+  - Shipment Tracking
+- Identified Dependencies to streamline the implementation phase.
+
+ 3. Third-Party API Documentation
+- Defined APIs for:
+  - Product management via Sanity CMS
+  - Payment processing using Stripe
+  - Shipment tracking using ShipEngine
+- Documented API endpoints, methods, payloads, and sample responses.
+
+ 4. System Architecture & Workflow Overview
+- Frontend (Next.js): A responsive UI for product browsing, cart management, and checkout.
+- Sanity CMS: Manages product data, order records, and customer details.
+- Third-Party APIs:
+  - ShipEngine for shipment tracking
+  - Stripe for secure payment processing
+- Data Flow:
+  - User actions on the frontend trigger API calls to Sanity CMS for product and order data.
+  - Payment and shipment details are handled by Stripe and ShipEngine, respectively, with seamless integration.
+
+5. Technical Documentation
+Detailed documentation is available in the "PDF files"section:
+- ECommerce Schema: Detailed schemas for Sanity CMS.
+- Marketplace Technical Foundation:High-level architecture and workflows.
+- Third-Party API: API documentation for integrations with ShipEngine and Stripe.
+
+ GitHub Repository
+Access the full project files, schemas, and documentation on GitHub:
+[FUrniro Marketplace Builder Hackathon 2025](https://github.com/AreebaNadeem567/Furniro-Marketplace-Builder-Hackathon-2025.git)
+
+---
+
+Project Overview
+
+Furniro Marketplace Builder:
+A Next.js-based web application designed to simplify the creation and management of online furniture marketplaces. It utilizes modern technologies like **Next.js, Sanity, and TailwindCSS** to deliver a seamless and responsive user experience.
+
+Live Links:
+- GitHub Repository: [Furniro Marketplace Builder](https://github.com/AreebaNadeem567/Furniro-Marketplace-Builder-Hackathon-2025.git)
+- Live Deployment: [Furniro on Vercel](https://furniro-marketplace-builder-hackathon-2025-h3uk.vercel.app/)
+
+Technologies Used
+Frontend
+- Next.js (v15.1.5)
+- React (v19.0.0)
+- TailwindCSS (v3.4.1)
+
+Backend
+- Sanity CMS
+
+ Additional Libraries
+- Radix UI (Accessible UI components)
+- EmailJS (Email communication)
+- Embla Carousel (Advanced carousel functionalities)
+- Jotai (State management)
+- Styled Components (Component-level styling)
+- Axios (API integration)
+
+How to Run the Project Locally
+#Clone the repository:
+```bash
+ git clone https://github.com/AreebaNadeem567/Furniro-Marketplace-Builder-Hackathon-2025.git
+```
+Navigate to the project directory:
+```bash
+ cd Furniro-Marketplace-Builder-Hackathon-2025
+```
+Install dependencies:
+```bash
+ npm install
+```
+Set up environment variables:
+- Create a `.env.local` file in the root directory.
+- Add the necessary environment variables (refer to `.env.example` if available).
+
+Start the development server:
+```bash
+ npm run dev
+```
+Open your browser and visit:
+[http://localhost:3000](http://localhost:3000)
+
+Deployment
+The application is hosted on Vercel. The staging and production builds can be deployed using the following commands:
+Build:
+```bash
+ npm run build
+```
+Start:
+```bash
+ npm run start
+```
+
+Key Features
+- Dynamic Marketplace Builder:Add, edit, and manage listings in real-time.
+- Responsive Design: Optimized for all screen sizes using TailwindCSS.
+- Carousel Integration: Advanced product showcase using Embla Carousel.
+- Email Communication: Integrated email functionality via EmailJS.
+- State Management: Efficient state handling with Jotai.
+- Content Management: Backed by Sanity CMS for dynamic content updates.
+
+Contributing
+We welcome contributions! Follow these steps:
+1. Fork the repository.
+2. Create a feature branch:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Your descriptive commit message"
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature-name
+   ```
+5. Open a Pull Request.
+
+License
+This project is licensed under the "MIT License". See the LICENSE file for details.
+
+Acknowledgments
+Special thanks to mentors and collaborators for their guidance and support!
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
