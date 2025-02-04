@@ -176,9 +176,11 @@ const Cart = () => {
             <p className="text-lg">Subtotal: <span className="font-semibold">Rs. {subtotal}</span></p>
             <p className="text-lg">Discount: <span className="text-green-600">-Rs. {discount}</span></p>
             <p className="text-xl font-bold">Total: Rs. {total}</p>
+            <Link href="/checkout">
             <button className="mt-4 w-full bg-yellow-500 text-white py-2 rounded-md hover:bg-yellow-600">
               Check Out
             </button>
+            </Link>
           </div>
         </div>
       </div>

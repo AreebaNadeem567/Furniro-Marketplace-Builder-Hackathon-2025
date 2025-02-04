@@ -1017,8 +1017,8 @@ export default function Checkout() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-black text-white py-2 px-3 rounded-lg hover:bg-gray-800 text-sm">
-                {/* //  className="bg-gradient-to-r bg-yellow-500 text-white py-2 px-8 hover:from-yellow-600"> */}
+                  // className="w-full bg-black text-white py-2 px-3 rounded-lg hover:bg-gray-800 text-sm">
+                 className="bg-gradient-to-r bg-yellow-500 text-white py-2 px-8 hover:from-yellow-600">
                   Submit
                 </button>
               </div>
